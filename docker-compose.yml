@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend-container
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app          # mount local code into container
+      - /app/node_modules        # keep node_modules inside container
+    command: npm run dev
+    depends_on:
+        - players-service
+        - matches-service
+    networks:
+      - transcendence-network
+
+  players-service:
+    container_name: players-microservice
+    build:
+      context: ./microservices/players
+      dockerfile: Dockerfile
+    ports:
+      - "3101:3101"
+    volumes:
+      - ./database:/app/database   # DB files persist here
+      - ./microservices/players/src:/app/src  # Only source code mounted
+    restart: unless-stopped
+    networks:
+      - transcendence-network
+
+  matches-service:
+    container_name: matches-microservice
+    build:
+      context: ./microservices/matches
+      dockerfile: Dockerfile
+    ports:
+      - "3102:3102"
+    volumes:
+      - ./database:/app/database
+      - ./microservices/matches/src:/app/src
+    depends_on:
+      - players-service
+    restart: unless-stopped
+    networks:
+      - transcendence-network
+
+networks:
+  transcendence-network:
+    driver: bridge

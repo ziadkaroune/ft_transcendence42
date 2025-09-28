@@ -1,0 +1,24 @@
+@import "tailwindcss";
+ body {
+    font-family: 'Orbitron', sans-serif;
+  }
+  .neon-text {
+    text-shadow:
+      0 0 5px #0ff;
+  }
+  .theme-default {
+  background: linear-gradient(to bottom right, #111, #222);
+}
+
+.theme-neon {
+  background: radial-gradient(circle at center, #00ffff 0%, #000066 100%);
+}
+
+.theme-cyber {
+  background: linear-gradient(to bottom right, #0f0f0f, #1f1f1f);
+  color: #39ff14;
+}
+
+.theme-forest {
+  background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+}
