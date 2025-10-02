@@ -11,10 +11,12 @@
 -  Minor module: Multiple language support.                 (.5)
 -  Major Module : backend (fastify , nodejs)                 (1)
 -  Minor Module : database (sqlite3)                         (.5)
+- Major module: Designing the Backend as Microservices           (1)
 
 ## Next:
 - Minor module: Expanding Browser Compatibility                 (.5)
-- Major module: Designing the Backend as Microservices           (1)
+- Major module: Store the score of a tournament in the Blockchain (1)
+
 
 ## total
- - (6.5)
+ - (7.5) > mondatory part == 7
