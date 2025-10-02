@@ -34,6 +34,9 @@ async function fetchMatchHistory(): Promise<Match[]> {
 async function resetTournamentDB(): Promise<void> {
   const res = await fetch('http://localhost:3101/players', { method: 'DELETE' });
   if (!res.ok) throw new Error('Failed to reset tournament');
+   
+  const matchdel = await fetch('http://localhost:3102/matches', { method: 'DELETE' });
+  if (!matchdel.ok) throw new Error('Failed to reset tournament');
 }
 
 // ----------------- Helpers -----------------
@@ -106,7 +109,7 @@ export async function renderRegistrationPage() {
       <section class="flex-1 rounded-2xl p-10 shadow-lg flex flex-col backdrop-blur-xl bg-white/10 border border-white/20">
         <h2 class="text-3xl font-semibold mb-6 border-b border-gray-700 pb-3">${t('players')} (${queue.length})</h2>
         <ul class="flex flex-col gap-3 max-h-64 overflow-y-auto mb-8 pr-2">
-          ${queue.map((alias) => `
+          ${queue.sort().map((alias) => `
             <li class="flex items-center gap-4 bg-gray-800 rounded-lg px-4 py-2 shadow-md hover:bg-gray-600 transition">
               <div class="w-12 h-12 rounded-full bg-purple-800 flex items-center justify-center text-white font-bold text-lg select-none">
                 ${getInitials(alias)}
